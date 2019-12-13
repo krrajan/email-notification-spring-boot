@@ -8,7 +8,7 @@ import com.self.email.config.model.EmailResponse;
 import com.self.email.service.EmailService;
 import com.self.email.service.route.EmailRouter;
 
-@Service()
+@Service("emailServiceImpl")
 public class EmailServiceImpl implements EmailService {
 
 	@Autowired
