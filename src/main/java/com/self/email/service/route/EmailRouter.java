@@ -27,7 +27,14 @@ public class EmailRouter {
 		String cc = request.getMailCC();
 		MultipartFile multipartFile = request.getFile();
 		
-		config.getInstance().send(new MimeMessagePreparator() {
+		config.getInstance().send(getMimeMessageInstance(request, cc, multipartFile));
+		response.setStatus("200");
+		response.setMessage("Mail successfully Sent.");
+		return response;
+	}
+
+	private MimeMessagePreparator getMimeMessageInstance(EmailRequest request, String cc, MultipartFile multipartFile) {
+		return new MimeMessagePreparator() {
 			@Override
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
@@ -51,10 +58,6 @@ public class EmailRouter {
 					});
 				}
 			}
-		});
-
-		response.setStatus("200");
-		response.setMessage("Mail successfully Sent.");
-		return response;
+		};
 	}
 }
